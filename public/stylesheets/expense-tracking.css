@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+}
+
+.expense-tracking-container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    margin-bottom: 1.5rem;
+}
+
+.sidebar .btn {
+    background-color: #1abc9c;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.sidebar .btn:hover {
+    background-color: #16a085;
+}
+
+.main-content {
+    width: 75%;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.expense-form-section h2,
+.expense-report-section h2 {
+    margin-bottom: 1.5rem;
+    color: #34495e;
+}
+
+.expense-form-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.expense-form-section form label {
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+.expense-form-section form select,
+.expense-form-section form input,
+.expense-form-section form textarea {
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.expense-form-section form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.expense-form-section .btn {
+    background-color: #3498db;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.expense-form-section .btn:hover {
+    background-color: #2980b9;
+}
+
+.expense-report-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.expense-report-section ul li {
+    padding: 0.8rem;
+    background-color: #ecf0f1;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.expense-report-section p {
+    font-weight: bold;
+    margin-top: 1rem;
+}

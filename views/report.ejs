@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics</title>
+    <link rel="stylesheet" href="/stylesheets/reports-analytics.css">
+</head>
+
+<body>
+    <div class="reports-analytics-container">
+        <!-- Sidebar for navigation -->
+        <aside class="sidebar">
+            <h2>Reports & Analytics</h2>
+            <button class="btn generate-report-btn" onclick="showReportOptions()">Generate Report</button>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <section class="report-options">
+                <h2>Report Options</h2>
+                <form id="report-form">
+                    <label for="report-type">Select Report Type:</label>
+                    <select id="report-type" required>
+                        <option value="" disabled selected>Select type</option>
+                        <option value="daily">Daily Summary</option>
+                        <option value="weekly">Weekly Summary</option>
+                        <option value="monthly">Monthly Summary</option>
+                    </select>
+                    <button type="submit" class="btn">Generate</button>
+                </form>
+            </section>
+            <section class="report-results">
+                <h2>Report Results</h2>
+                <div id="report-content">
+                    <!-- Report content will be dynamically populated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showReportOptions() {
+            document.getElementById('report-form').reset();
+            document.getElementById('report-content').innerHTML = '';
+        }
+
+        document.getElementById('report-form').onsubmit = function(event) {
+            event.preventDefault();
+            const type = document.getElementById('report-type').value;
+
+            let reportContent = '';
+
+            switch (type) {
+                case 'daily':
+                    reportContent = `
+                        <h3>Daily Financial Summary</h3>
+                        <p>Total Income: ₹ 10,000</p>
+                        <p>Total Expenses: ₹ 7,500</p>
+                        <p>Net Profit: ₹ 2,500</p>
+                        <h4>Insights</h4>
+                        <p>Cash flow is steady with a positive balance.</p>
+                    `;
+                    break;
+                case 'weekly':
+                    reportContent = `
+                        <h3>Weekly Financial Summary</h3>
+                        <p>Total Income: ₹ 70,000</p>
+                        <p>Total Expenses: ₹ 50,000</p>
+                        <p>Net Profit: ₹ 20,000</p>
+                        <h4>Insights</h4>
+                        <p>Weekly revenue is strong, with expenses well managed.</p>
+                    `;
+                    break;
+                case 'monthly':
+                    reportContent = `
+                        <h3>Monthly Financial Summary</h3>
+                        <p>Total Income: ₹ 300,000</p>
+                        <p>Total Expenses: ₹ 250,000</p>
+                        <p>Net Profit: ₹ 50,000</p>
+                        <h4>Insights</h4>
+                        <p>Month-end cash flow is positive, with increased customer activity.</p>
+                    `;
+                    break;
+                default:
+                    reportContent = '<p>Please select a report type.</p>';
+            }
+
+            document.getElementById('report-content').innerHTML = reportContent;
+        };
+    </script>
+</body>
+
+</html>

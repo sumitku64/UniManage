@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration & Login</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 >UniManage</h1>
+        <div class="form-container">
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="form">
+                <h2>Sign Up</h2>
+                <input type="text" id="business-name" placeholder="Business name" required>
+                <input type="email" id="signup-email" placeholder="Email" required>
+                <!-- <input type="text" id="signup-phone" placeholder="Phone Number" required> -->
+                <input type="password" id="signup-password" placeholder="Password" required>
+               
+                <button type="submit">Sign Up</button>
+                <p>Or sign up with:</p>
+                <div class="social-login">
+
+                </div>
+                <p>Already have an account? <a href="#" onclick="toggleForms()">Log In</a></p>
+            </form>
+
+            <!-- Login Form -->
+            <form id="login-form" class="form hidden">
+                <h2>Log In</h2>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <!-- <input type="text" id="login-phone" placeholder="Phone Number" required> -->
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Log In</button>
+                <p>Or log in with:</p>
+                <div class="social-login">
+                  
+                </div>
+                <p>Don't have an account? <a href="#" onclick="toggleForms()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle between Sign Up and Log In forms
+        function toggleForms() {
+            document.getElementById('signup-form').classList.toggle('hidden');
+            document.getElementById('login-form').classList.toggle('hidden');
+        }
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ledger Management</title>
+    <link rel="stylesheet" href="/stylesheets/ledger-management.css">
+</head>
+
+<body>
+    <div class="ledger-management-container">
+        <!-- Sidebar for navigation -->
+        <aside class="sidebar">
+            <h2>Ledger Management</h2>
+            <button class="btn add-transaction-btn" onclick="showAddTransactionForm()">Add Transaction</button>
+            <ul id="customer-list">
+                <!-- Dynamically populated customer list -->
+            </ul>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <section class="ledger-details">
+                <h2 id="ledger-customer-name">Select a Customer</h2>
+                <div id="ledger-info">
+                    <!-- Customer ledger details will be displayed here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for Add Transaction -->
+        <div id="transaction-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeTransactionModal()">&times;</span>
+                <h2 id="modal-title">Add Transaction</h2>
+                <form id="transaction-form">
+                    <input type="text" id="transaction-amount-input" placeholder="Amount" required>
+                    <select id="transaction-type-input" required>
+                        <option value="credit">Credit</option>
+                        <option value="debit">Debit</option>
+                    </select>
+                    <input type="text" id="transaction-description-input" placeholder="Description">
+                    <button type="submit" class="btn">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for handling ledger management
+        const customers = [{
+            name: 'Sumit Kumar',
+            balance: 0,
+            transactions: []
+        }, {
+            name: 'Ronak vora',
+            balance: 0,
+            transactions: []
+        },
+        {
+            name:'Divyang Chavda',
+            balance:0,
+            transaction:[]
+        }
+        ];
+
+        function renderCustomerList() {
+            const customerList = document.getElementById('customer-list');
+            customerList.innerHTML = '';
+
+            customers.forEach((customer, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerText = customer.name;
+                listItem.onclick = () => showCustomerLedger(index);
+                customerList.appendChild(listItem);
+            });
+        }
+
+        function showCustomerLedger(index) {
+            const customer = customers[index];
+            document.getElementById('ledger-customer-name').innerText = customer.name;
+            document.getElementById('ledger-info').innerHTML = `
+                <p>Outstanding Balance: ₹ ${customer.balance.toFixed(2)}</p>
+                <h3>Transaction History</h3>
+                <ul>
+                    ${customer.transactions.map(t => `<li>${t.date} - ${t.type}: ₹ ${t.amount.toFixed(2)} - ${t.description}</li>`).join('')}
+                </ul>
+                <button class="btn add-transaction-btn" onclick="showAddTransactionForm(${index})">Add Transaction</button>
+            `;
+        }
+
+        function showAddTransactionForm(index) {
+            const form = document.getElementById('transaction-form');
+            document.getElementById('modal-title').innerText = 'Add Transaction';
+            form.reset();
+            document.getElementById('transaction-modal').classList.remove('hidden');
+
+            form.onsubmit = function(event) {
+                event.preventDefault();
+                const amount = parseFloat(document.getElementById('transaction-amount-input').value);
+                const type = document.getElementById('transaction-type-input').value;
+                const description = document.getElementById('transaction-description-input').value;
+
+                if (index !== undefined) {
+                    const customer = customers[index];
+                    const transaction = {
+                        date: new Date().toLocaleDateString(),
+                        amount,
+                        type,
+                        description
+                    };
+
+                    customer.transactions.push(transaction);
+                    customer.balance += type === 'credit' ? amount : -amount;
+
+                    closeTransactionModal();
+                    showCustomerLedger(index);
+                }
+            };
+        }
+
+        function closeTransactionModal() {
+            document.getElementById('transaction-modal').classList.add('hidden');
+        }
+
+        // Initial render
+        renderCustomerList();
+    </script>
+</body>
+
+</html>

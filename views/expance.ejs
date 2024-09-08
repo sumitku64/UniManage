@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracking</title>
+    <link rel="stylesheet" href="/stylesheets/expense-tracking.css">
+</head>
+
+<body>
+    <div class="expense-tracking-container">
+        <!-- Sidebar for navigation -->
+        <aside class="sidebar">
+            <h2>Expense Tracking</h2>
+            <button class="btn add-expense-btn" onclick="showAddExpenseForm()">Add Expense</button>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <section class="expense-form-section">
+                <h2>Record Expense</h2>
+                <form id="expense-form">
+                    <label for="expense-category">Category:</label>
+                    <select id="expense-category" required>
+                        <option value="" disabled selected>Select category</option>
+                        <option value="travel">Travel</option>
+                        <option value="office-supplies">Office Supplies</option>
+                        <option value="utilities">Utilities</option>
+                        <option value="others">Others</option>
+                    </select>
+                    <label for="expense-amount">Amount:</label>
+                    <input type="number" id="expense-amount" placeholder="Enter amount" required>
+                    <label for="expense-description">Description:</label>
+                    <textarea id="expense-description" placeholder="Enter description"></textarea>
+                    <button type="submit" class="btn">Save Expense</button>
+                </form>
+            </section>
+            <section class="expense-report-section">
+                <h2>Expense Reports</h2>
+                <div id="expense-report-content">
+                    <!-- Expense report content will be dynamically populated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const expenses = [];
+
+        function showAddExpenseForm() {
+            document.getElementById('expense-form').reset();
+        }
+
+        document.getElementById('expense-form').onsubmit = function(event) {
+            event.preventDefault();
+
+            // Extract form values
+            const category = document.getElementById('expense-category').value;
+            const amount = parseFloat(document.getElementById('expense-amount').value);
+            const description = document.getElementById('expense-description').value;
+
+            // Add expense to the list
+            expenses.push({
+                category,
+                amount,
+                description,
+                date: new Date().toLocaleDateString()
+            });
+
+            // Update expense report
+            updateExpenseReport();
+
+            // Reset the form
+            document.getElementById('expense-form').reset();
+        };
+
+        function updateExpenseReport() {
+            const reportContent = document.getElementById('expense-report-content');
+            const categories = [...new Set(expenses.map(e => e.category))];
+            let reportHtml = '';
+
+            categories.forEach(category => {
+                        const categoryExpenses = expenses.filter(e => e.category === category);
+                        const totalAmount = categoryExpenses.reduce((sum, e) => sum + e.amount, 0);
+
+                        reportHtml += `
+                    <h3>${category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+                    <ul>
+                        ${categoryExpenses.map(e => `
+                            <li>${e.date} - ₹ ${e.amount.toFixed(2)} - ${e.description}</li>
+                        `).join('')}
+                    </ul>
+                    <p>Total for ${category.charAt(0).toUpperCase() + category.slice(1)}: ₹ ${totalAmount.toFixed(2)}</p>
+                `;
+            });
+
+            reportContent.innerHTML = reportHtml;
+        }
+    </script>
+</body>
+
+</html>

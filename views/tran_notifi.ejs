@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Notifications</title>
+    <link rel="stylesheet" href="/stylesheets/transaction-notifications.css">
+</head>
+
+<body>
+    <div class="notifications-container">
+        <!-- Sidebar for navigation -->
+        <aside class="sidebar">
+            <h2>Notifications</h2>
+            <button class="btn send-notification-btn" onclick="showSendNotificationForm()">Send Notification</button>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <section class="notification-form-section">
+                <h2>Send Notification</h2>
+                <form id="notification-form">
+                    <label for="notification-type">Select Notification Type:</label>
+                    <select id="notification-type" required>
+                        <option value="" disabled selected>Select type</option>
+                        <option value="sms">SMS</option>
+                        <option value="whatsapp">WhatsApp</option>
+                    </select>
+                    <label for="notification-message">Message:</label>
+                    <textarea id="notification-message" placeholder="Enter message here..." required></textarea>
+                    <label for="customer-number">Customer Number:</label>
+                    <input type="text" id="customer-number" placeholder="Enter customer number..." required>
+                    <button type="submit" class="btn">Send</button>
+                </form>
+                <div id="notification-result" class="notification-result hidden">
+                    <p id="result-message"></p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSendNotificationForm() {
+            document.getElementById('notification-form').reset();
+            document.getElementById('notification-result').classList.add('hidden');
+        }
+
+        document.getElementById('notification-form').onsubmit = function(event) {
+            event.preventDefault();
+
+            // Extract form values
+            const type = document.getElementById('notification-type').value;
+            const message = document.getElementById('notification-message').value;
+            const number = document.getElementById('customer-number').value;
+
+            // Simulate sending a notification
+            document.getElementById('result-message').innerText = `Notification sent via ${type} to ${number}.`;
+            document.getElementById('notification-result').classList.remove('hidden');
+        };
+    </script>
+</body>
+
+</html>
