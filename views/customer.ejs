@@ -22,58 +22,53 @@
                     <img src="/images/images.png" alt="Profile">
                     <div class="dropdown-menu">
                         <a href="/profile">Profile</a>
-                        <a href="/help">help</a>
+                        <a href="/help">Help</a>
                         <a href="/">Logout</a>
                     </div>
                 </div>
             </nav>
-        
         </div>
     
-     <div class="customer-management-container">
-        <!-- Sidebar for navigation -->
-        <aside class="sidebar">
-            <h2>Customer Management</h2>
-            <button class="btn add-customer-btn" onclick="showAddCustomerForm()">Add Customer</button>
-            <ul id="customer-list">
-                <!-- Dynamically populated customer list -->
-            </ul>
-        </aside>
+        <div class="customer-management-container">
+            <!-- Sidebar for navigation -->
+            <aside class="sidebar">
+                <h2>Customer Management</h2>
+                <button class="btn add-customer-btn" onclick="showAddCustomerForm()">Add Customer</button>
+                <ul id="customer-list">
+                    <!-- Dynamically populated customer list -->
+                </ul>
+            </aside>
 
-        <!-- Main content area -->
-        <main class="main-content">
-            <section class="customer-details">
-                <h2 id="customer-name">Select a Customer</h2>
-                <div id="customer-info">
-                    <!-- Customer details and transaction history will be displayed here -->
+            <!-- Main content area -->
+            <main class="main-content">
+                <section class="customer-details">
+                    <h2 id="customer-name">Select a Customer</h2>
+                    <div id="customer-info">
+                        <!-- Customer details and transaction history will be displayed here -->
+                    </div>
+                </section>
+            </main>
+
+            <!-- Modal for Add/Edit Customer -->
+            <div id="customer-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 id="modal-title">Add Customer</h2>
+                    <form id="customer-form">
+                        <input type="text" id="customer-name-input" placeholder="Customer Name" required><br><br>
+                        <input type="email" id="customer-email-input" placeholder="Customer Email" required><br><br>
+                        <input type="text" id="customer-phone-input" placeholder="Customer Phone" required><br><br>
+                        <input type="number" id="account-balance" placeholder="Enter opening balance" required>
+                        <select id="account-balance-select">
+                            <option id="account-balance-select-green" class="balance-green" value="You Got" selected>You Got</option>
+                            <option id="account-balance-select-red" class="balance-red" value="You Gave">You Gave</option>
+                        </select>
+                        <br><br>
+                        <button type="submit" class="btn">Save</button>
+                    </form>
                 </div>
-            </section>
-        </main>
-
-        <!-- Modal for Add/Edit Customer -->
-        <div id="customer-modal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2 id="modal-title">Add Customer</h2>
-                <form id="customer-form">
-                    <input type="text" id="customer-name-input" placeholder="Customer Name" required><br><br>
-                    <input type="email" id="customer-email-input" placeholder="Customer Email" required><br><br>
-                    <input type="text" id="customer-phone-input" placeholder="Customer Phone" required><br><br>
-                  <input type="number" id="account-balance" placeholder="Enter opening balance" required >
-                    <select  id="account-balance-select">
-                        <option id="account-balance-select-green" class="balance-green" selected>You Got</option>
-                    <option id="account-balance-select-red" class="balance-red">You Gave</option></select>
-                    
-                    
-                    
-                    <br>
-                    <br>
-
-                    <button type="submit" class="btn">Save</button>
-                </form>
             </div>
         </div>
-     </div>
     </div>
 
     <script>
@@ -90,14 +85,13 @@
             document.getElementById('customer-modal').classList.add('hidden');
         }
 
-        function addCustomer(name, email, phone,balance,option) {
+        function addCustomer(name, email, phone, balance, option) {
             const customer = {
                 name,
                 email,
                 phone,
                 balance,
                 option,
-
                 transactions: []
             };
             customers.push(customer);
@@ -117,27 +111,24 @@
         }
 
         function showCustomerDetails(index) {
-    const customer = customers[index];
-    
-    // Determine the class for balance display based on the option selected
-    const balanceClass = customer.option === 'You Got' ? 'balance-green' : 'balance-red';
+            const customer = customers[index];
+            
+            // Determine the class for balance display based on the option selected
+            const balanceClass = customer.option === 'You Got' ? 'balance-green' : 'balance-red';
 
-    document.getElementById('customer-name').innerText = customer.name;
-    document.getElementById('customer-info').innerHTML = `
-        <p>Email: ${customer.email}</p>
-        <p>Phone: ${customer.phone}</p>
-        <p>Balance: <span class="
-            ${balanceClass}">${customer.balance} ${customer.option}</span></p>
-        
-        <h3>Transaction History</h3>
-        <ul>
-            ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
-        </ul>
-        <button class="btn edit-customer-btn" onclick="editCustomer(${index})">Edit</button>
-        <button class="btn delete-customer-btn" onclick="deleteCustomer(${index})">Delete</button>
-    `;
-}
-
+            document.getElementById('customer-name').innerText = customer.name;
+            document.getElementById('customer-info').innerHTML = `
+                <p>Email: ${customer.email}</p>
+                <p>Phone: ${customer.phone}</p>
+                <p>Balance: <span class="${balanceClass}">${customer.balance} ${customer.option}</span></p>
+                <h3>Transaction History</h3>
+                <ul>
+                    ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
+                </ul>
+                <button class="btn edit-customer-btn" onclick="editCustomer(${index})">Edit</button>
+                <button class="btn delete-customer-btn" onclick="deleteCustomer(${index})">Delete</button>
+            `;
+        }
 
         function editCustomer(index) {
             const customer = customers[index];
@@ -151,11 +142,15 @@
 
             document.getElementById('customer-form').onsubmit = function(event) {
                 event.preventDefault();
-                customer.name = document.getElementById('customer-name-input').value;
-                customer.email = document.getElementById('customer-email-input').value;
-                customer.phone = document.getElementById('customer-phone-input').value;
-                customer.balance = document.getElementById('account-balance').value;
-                customer.option = document.getElementById('account-balance-select').value;
+                
+                const name = document.getElementById('customer-name-input').value;
+                const email = document.getElementById('customer-email-input').value;
+                const phone = document.getElementById('customer-phone-input').value;
+                const balance = document.getElementById('account-balance').value;
+                const option = document.getElementById('account-balance-select').value;
+
+                // Update the customer and re-render the list with the updated balance color
+                customers[index] = { name, email, phone, balance, option, transactions: customers[index].transactions };
                 closeModal();
                 renderCustomerList();
                 showCustomerDetails(index);
@@ -177,7 +172,7 @@
             const balance = document.getElementById('account-balance').value;
             const option = document.getElementById('account-balance-select').value;
             
-            addCustomer(name, email, phone,balance,option);
+            addCustomer(name, email, phone, balance, option);
             closeModal();
         };
     </script>
