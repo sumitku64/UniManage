@@ -59,7 +59,7 @@
                     <input type="text" id="customer-name-input" placeholder="Customer Name" required><br><br>
                     <input type="email" id="customer-email-input" placeholder="Customer Email" required><br><br>
                     <input type="text" id="customer-phone-input" placeholder="Customer Phone" required><br><br>
-                    <input type="number" id="account-balance" name="account-balance" placeholder="Enter opening balance" step="0.01" required><br><br>
+                    <input type="number" id="account-balance" placeholder="Enter opening balance" required><br><br>
 
                     <button type="submit" class="btn">Save</button>
                 </form>
@@ -82,11 +82,12 @@
             document.getElementById('customer-modal').classList.add('hidden');
         }
 
-        function addCustomer(name, email, phone) {
+        function addCustomer(name, email, phone,balance) {
             const customer = {
                 name,
                 email,
                 phone,
+                balance,
                 transactions: []
             };
             customers.push(customer);
@@ -111,6 +112,7 @@
             document.getElementById('customer-info').innerHTML = `
                 <p>Email: ${customer.email}</p>
                 <p>Phone: ${customer.phone}</p>
+                 <p>Balance: ${customer.balance}</p>
                 <h3>Transaction History</h3>
                 <ul>
                     ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
@@ -126,6 +128,7 @@
             document.getElementById('customer-name-input').value = customer.name;
             document.getElementById('customer-email-input').value = customer.email;
             document.getElementById('customer-phone-input').value = customer.phone;
+            document.getElementById('account-balance').value = customer.balance;
             document.getElementById('customer-modal').classList.remove('hidden');
 
             document.getElementById('customer-form').onsubmit = function(event) {
@@ -133,6 +136,7 @@
                 customer.name = document.getElementById('customer-name-input').value;
                 customer.email = document.getElementById('customer-email-input').value;
                 customer.phone = document.getElementById('customer-phone-input').value;
+                customer.balance = document.getElementById('account-balance').value;
                 closeModal();
                 renderCustomerList();
                 showCustomerDetails(index);
@@ -151,7 +155,8 @@
             const name = document.getElementById('customer-name-input').value;
             const email = document.getElementById('customer-email-input').value;
             const phone = document.getElementById('customer-phone-input').value;
-            addCustomer(name, email, phone);
+            const balance = document.getElementById('account-balance').value;
+            addCustomer(name, email, phone,balance);
             closeModal();
         };
     </script>
