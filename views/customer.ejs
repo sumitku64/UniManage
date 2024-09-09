@@ -13,7 +13,7 @@
         <div>
             <nav class="navbar">
                 <!-- Left: Logo -->
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="#">
                     <img src="/images/logo.png" alt="Logo">
                 </a>
         
@@ -59,7 +59,15 @@
                     <input type="text" id="customer-name-input" placeholder="Customer Name" required><br><br>
                     <input type="email" id="customer-email-input" placeholder="Customer Email" required><br><br>
                     <input type="text" id="customer-phone-input" placeholder="Customer Phone" required><br><br>
-                    <input type="number" id="account-balance" placeholder="Enter opening balance" required><br><br>
+                  <input type="number" id="account-balance" placeholder="Enter opening balance" required >
+                    <select  id="account-balance-select">
+                        <option id="account-balance-select-green" selected>You Got</option>
+                    <option id="account-balance-select-red">You Gave</option></select>
+                    
+                    
+                    
+                    <br>
+                    <br>
 
                     <button type="submit" class="btn">Save</button>
                 </form>
@@ -82,12 +90,14 @@
             document.getElementById('customer-modal').classList.add('hidden');
         }
 
-        function addCustomer(name, email, phone,balance) {
+        function addCustomer(name, email, phone,balance,option) {
             const customer = {
                 name,
                 email,
                 phone,
                 balance,
+                option,
+
                 transactions: []
             };
             customers.push(customer);
@@ -113,6 +123,7 @@
                 <p>Email: ${customer.email}</p>
                 <p>Phone: ${customer.phone}</p>
                  <p>Balance: ${customer.balance}</p>
+                 <p>Option:${customer.option}</p>
                 <h3>Transaction History</h3>
                 <ul>
                     ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
@@ -129,6 +140,7 @@
             document.getElementById('customer-email-input').value = customer.email;
             document.getElementById('customer-phone-input').value = customer.phone;
             document.getElementById('account-balance').value = customer.balance;
+            document.getElementById('account-balance-select').value = customer.option;
             document.getElementById('customer-modal').classList.remove('hidden');
 
             document.getElementById('customer-form').onsubmit = function(event) {
@@ -137,6 +149,7 @@
                 customer.email = document.getElementById('customer-email-input').value;
                 customer.phone = document.getElementById('customer-phone-input').value;
                 customer.balance = document.getElementById('account-balance').value;
+                customer.option = document.getElementById('account-balance-select').value;
                 closeModal();
                 renderCustomerList();
                 showCustomerDetails(index);
@@ -156,7 +169,9 @@
             const email = document.getElementById('customer-email-input').value;
             const phone = document.getElementById('customer-phone-input').value;
             const balance = document.getElementById('account-balance').value;
-            addCustomer(name, email, phone,balance);
+            const option = document.getElementById('account-balance-select').value;
+            
+            addCustomer(name, email, phone,balance,option);
             closeModal();
         };
     </script>

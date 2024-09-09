@@ -250,3 +250,12 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+#account-balance-select-green{
+    color: green;
+    font-weight: bold;
+    
+}
+#account-balance-select-red{
+    color: red;
+    font-weight: bold;
+}
