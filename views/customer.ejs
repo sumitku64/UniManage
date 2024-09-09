@@ -61,8 +61,8 @@
                     <input type="text" id="customer-phone-input" placeholder="Customer Phone" required><br><br>
                   <input type="number" id="account-balance" placeholder="Enter opening balance" required >
                     <select  id="account-balance-select">
-                        <option id="account-balance-select-green" selected>You Got</option>
-                    <option id="account-balance-select-red">You Gave</option></select>
+                        <option id="account-balance-select-green" class="balance-green" selected>You Got</option>
+                    <option id="account-balance-select-red" class="balance-red">You Gave</option></select>
                     
                     
                     
@@ -117,21 +117,27 @@
         }
 
         function showCustomerDetails(index) {
-            const customer = customers[index];
-            document.getElementById('customer-name').innerText = customer.name;
-            document.getElementById('customer-info').innerHTML = `
-                <p>Email: ${customer.email}</p>
-                <p>Phone: ${customer.phone}</p>
-                 <p>Balance: ${customer.balance}</p>
-                 <p>Option:${customer.option}</p>
-                <h3>Transaction History</h3>
-                <ul>
-                    ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
-                </ul>
-                <button class="btn edit-customer-btn" onclick="editCustomer(${index})">Edit</button>
-                <button class="btn delete-customer-btn" onclick="deleteCustomer(${index})">Delete</button>
-            `;
-        }
+    const customer = customers[index];
+    
+    // Determine the class for balance display based on the option selected
+    const balanceClass = customer.option === 'You Got' ? 'balance-green' : 'balance-red';
+
+    document.getElementById('customer-name').innerText = customer.name;
+    document.getElementById('customer-info').innerHTML = `
+        <p>Email: ${customer.email}</p>
+        <p>Phone: ${customer.phone}</p>
+        <p>Balance: <span class="
+            ${balanceClass}">${customer.balance} ${customer.option}</span></p>
+        
+        <h3>Transaction History</h3>
+        <ul>
+            ${customer.transactions.map(t => `<li>${t}</li>`).join('')}
+        </ul>
+        <button class="btn edit-customer-btn" onclick="editCustomer(${index})">Edit</button>
+        <button class="btn delete-customer-btn" onclick="deleteCustomer(${index})">Delete</button>
+    `;
+}
+
 
         function editCustomer(index) {
             const customer = customers[index];

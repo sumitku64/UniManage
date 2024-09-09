@@ -259,3 +259,12 @@ input[type="number"] {
     color: red;
     font-weight: bold;
 }
+.balance-green {
+    color: green;
+    font-weight: bold;
+}
+
+.balance-red {
+    color: red;
+    font-weight: bold;
+}
