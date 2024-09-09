@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khatabook Form</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .entries-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .entry-info {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+        }
+
+        .entry-amount {
+            text-align: center;
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Khatabook Form</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="divyang">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" value="+91 9687131427">
+        <label for="dueDate">Set Due Date:</label>
+        <select id="dueDate" name="dueDate">
+            <option value="7 days">7 days</option>
+            <option value="14 days">14 days</option>
+            <option value="30 days">30 days</option>
+        </select>
+        <label for="reminder">Send Reminder:</label>
+        <input type="checkbox" id="reminder" name="reminder">
+        <h3>Entries</h3>
+        <div class="entries-container">
+            <div class="entry-info">
+                <label for="entryDate1">Date:</label>
+                <input type="date" id="entryDate1" name="entryDate1" value="2024-09-09">
+                <label for="entryTime1">Time:</label>
+                <input type="time" id="entryTime1" name="entryTime1" value="12:29">
+                <label for="entryBalance1">Balance:</label>
+                <input type="number" id="entryBalance1" name="entryBalance1" value="-2677">
+            </div>
+            <div class="entry-amount">
+                <label for="entryAmount1">You Gave:</label>
+                <input type="number" id="entryAmount1" name="entryAmount1" value="7677">
+            </div>
+        </div>
+        <div class="entries-container">
+            <div class="entry-info">
+                <label for="entryDate2">Date:</label>
+                <input type="date" id="entryDate2" name="entryDate2" value="2024-09-09">
+                <label for="entryTime2">Time:</label>
+                <input type="time" id="entryTime2" name="entryTime2" value="12:03">
+                <label for="entryBalance2">Balance:</label>
+                <input type="number" id="entryBalance2" name="entryBalance2" value="5000">
+                <label for="entryType2">Type:</label>
+                <select id="entryType2" name="entryType2">
+                    <option value="Opening Balance">Opening Balance</option>
+                </select>
+            </div>
+            <div class="entry-amount">
+                <label for="entryAmount2">You Got:</label>
+                <input type="number" id="entryAmount2" name="entryAmount2" value="5000">
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </div>
+    <script>
+       const form = document.querySelector('form');
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form data
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const dueDate = document.getElementById('dueDate').value;
+    const reminder = document.getElementById('reminder').checked;
+
+    // Get entries data
+    const entries = [];
+    const entryElements = document.querySelectorAll('.entries-container');
+    entryElements.forEach(entryElement => {
+        const entryDate = entryElement.querySelector('[name="entryDate"]').value;
+        const entryTime = entryElement.querySelector('[name="entryTime"]').value;
+        const entryBalance = entryElement.querySelector('[name="entryBalance"]').value;
+        const entryAmount = entryElement.querySelector('[name="entryAmount"]').value;
+        const entryType = entryElement.querySelector('[name="entryType"]').value;
+        entries.push({
+            date: entryDate,
+            time: entryTime,
+            balance: entryBalance,
+            amount: entryAmount,
+            type: entryType
+        });
+    });
+
+    // Process the form data (e.g., send to a server, store in local storage)
+    console.log('Form data:', {
+        name: name,
+        phone: phone,
+        dueDate: dueDate,
+        reminder: reminder,
+        entries: entries
+    });
+
+    // Display a success message or redirect to another page
+    alert('Form submitted successfully!');
+});
+    </script>
+</body>
+</html>

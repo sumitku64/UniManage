@@ -31,5 +31,8 @@ router.get('/Notification', function(req, res, next) {
 router.get('/navbar', function(req, res, next) {
   res.render('navbar');
 });
+router.get('/popup', function(req, res, next) {
+  res.render('popup');
+});
 
 module.exports = router;
