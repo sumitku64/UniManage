@@ -152,3 +152,11 @@ body {
     visibility: visible;
     opacity: 1;
 }
+.credit-green{
+    color: green;
+    font-weight: bold;
+}
+.debit-red{
+    color: red;
+    font-weight: bold;
+}
